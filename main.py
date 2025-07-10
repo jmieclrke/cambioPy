@@ -59,11 +59,31 @@ class Player(object):
 	def __init__(self, name):
 		self.name = name
 		self.hand = []
+		self.temphand = [] # Stores the card that the player has just picked up.
 		self.score = 0
 		
 		
 	def draw(self, deck):
-		self.hand.append(deck.drawCard())
+		self.temphand.append(deck.drawCard())
+		print(" _____ ")
+		print("|     |")
+		print(f"| {self.temphand[0].getCard()} |")
+		print("|     |")
+		print("|     |")
+		print(" ----- ")
+		
+		while True:
+			choice = input("Keep or discard card? [K/d]\n>> ")
+			if choice.lower() == "k":
+				#swap card
+				break;
+			elif choice.lower() == "d":
+				self.temphand = []
+				print("CARD DISCARDED")
+				break;
+			else:
+				print("Invalid choice")
+		
 	
 	def deal(self, deck):
 		self.hand.append(deck.drawCard())
@@ -103,6 +123,7 @@ class Player(object):
 		print("|#####|   |#####|")
 		print("|#####|   |#####|")
 		print(" -----     -----")
+		
 	
 	def showCard(self, number):
 		self.hand[number-1].show()
@@ -130,4 +151,5 @@ player.deal(deck)
 player.displayGrid()
 
 player.showHand()
+player.draw(deck)
 player.displayScore()
