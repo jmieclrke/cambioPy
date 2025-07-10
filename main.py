@@ -75,7 +75,7 @@ class Player(object):
 		while True:
 			choice = input("Keep or discard card? [K/d]\n>> ")
 			if choice.lower() == "k":
-				#swap card
+				self.swap()
 				break;
 			elif choice.lower() == "d":
 				self.temphand = []
@@ -83,7 +83,23 @@ class Player(object):
 				break;
 			else:
 				print("Invalid choice")
+	
+	def swap(self):
+		self.displayGrid()
 		
+		while True:
+			choice = int(input("Choose a card to swap out\n>>"))
+			if choice > 0 and choice <= len(self.hand):
+				print("correct!")
+				break
+			else:
+				print("incorrect choice!")
+		
+		
+		self.showHand()
+		self.hand.pop(choice-1)
+		self.hand.insert(choice-1, self.temphand[0])
+		self.showHand()
 	
 	def deal(self, deck):
 		self.hand.append(deck.drawCard())
