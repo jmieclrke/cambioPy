@@ -1,5 +1,5 @@
 import random
-
+from os import system
 # Code for building a deck of cards and drawing a card to the players hand taken from:
 # https://www.youtube.com/watch?v=t8YkjDH86Y4
 
@@ -125,6 +125,21 @@ class Player(object):
 	def discard(self):
 		return self.hand.pop()
 	
+	def displayStart(self):
+		print(" _____     _____")
+		print("|     |   |     |")
+		print(f"| {self.hand[0].getCard()} |   | {self.hand[1].getCard()} |")
+		print("|     |   |     |")
+		print("|     |   |     |")
+		print(" -----     -----")	
+		
+		print(" _____     _____")
+		print("|#####|   |#####|")
+		print("|# 3 #|   |# 4 #|")
+		print("|#####|   |#####|")
+		print("|#####|   |#####|")
+		print(" -----     -----")	
+		
 	def displayGrid(self):
 		print(" _____     _____")
 		print("|#####|   |#####|")
@@ -153,19 +168,37 @@ class Player(object):
 		
 		print(f"Your final score is {self.score}")
 		
-		
-
-
-			
-		
+				
+#==================================================================================
+#Main==============================================================================	
 deck = Deck()
 deck.shuffle()
-
-
 player = Player("Player1")
 player.deal(deck)
-player.displayGrid()
+	
+player.displayStart()
+choice = int(input("Memorise your cards then enter [1] to continue\n>>"))
 
-player.showHand()
-player.draw(deck)
-player.displayScore()
+play = 1
+while play != 0:
+	print(f"{player.name}'s turn")
+	
+	system("clear")
+	while True:
+		choice = input("Draw a card or call 'cambio' [D/c]\n>>")
+		if choice.lower() == "d":
+			player.draw(deck)
+			break
+		elif choice.lower() == "c":
+			player.showHand()
+			player.displayScore()
+			play = 0
+			break
+		else:
+			print("Incorrect entry")
+		
+	
+#player.displayGrid()
+#player.showHand()
+#player.draw(deck)
+#player.displayScore()
